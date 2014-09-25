@@ -1,14 +1,14 @@
-Puppet Cassandra module (DSC)
+Puppet Cassandra module (DSE)
 ==========================================
 
-[![Build Status](https://secure.travis-ci.org/gini/puppet-cassandra.png)](http://travis-ci.org/gini/puppet-cassandra)
 
 Overview
 --------
 
-Install Apache Cassandra from the [DataStax Community Edition] [1].
+Install Apache Cassandra from the [DataStax Enterprise Edition] [1].
+Based on the original puppet-cassandra by Gini. https://github.com/gini/puppet-cassandra/issues
 
-[1]: http://planetcassandra.org/
+[1]: http://www.datastax.com/
 
 
 Usage
@@ -39,7 +39,7 @@ Supported Platforms
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
-* Debian Linux 7.0 (Wheezy)
+* RedHat 6.5
 
 
 Support
@@ -47,12 +47,11 @@ Support
 
 Please create bug reports and feature requests in [GitHub issues] [2].
 
-[2]: https://github.com/gini/puppet-cassandra/issues
+[2]: https://github.com/wlfyit/puppet-cassandra/issues
 
 
 License
 -------
-
 Copyright (c) 2012-2013 smarchive GmbH, 2013 Gini GmbH
 
 This script is licensed under the [Apache License, Version 2.0] [3].
