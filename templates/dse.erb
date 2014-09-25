@@ -1,0 +1,20 @@
+# This file is managed by Puppet - any manual edits will be lost
+
+HADOOP_ENABLED=<%= @hadoop_enabled %>
+SOLR_ENABLED=<%= @solr_enabled %>
+SPARK_ENABLED=<%= @spark_enabled %>
+CFS_ENABLED=<%= @cfs_enabled %>
+
+# Install root
+if [ -d /usr/share/dse ]; then
+    DSE_HOME=/usr/share/dse
+fi
+
+OUTPUT_FILE="/var/log/cassandra/output.log"
+CONFDIR=/etc/dse/cassandra
+PIDFILE=/var/run/$NAME/$NAME.pid
+
+CASSANDRA_USER=cassandra
+CASSANDRA_GROUP=cassandra
+
+SPARK_CONF_DIR=/etc/dse/spark
