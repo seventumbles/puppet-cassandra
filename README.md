@@ -6,7 +6,7 @@ Overview
 --------
 
 Install Apache Cassandra from the [DataStax Enterprise Edition] [1].
-Based on the original puppet-cassandra by Gini. https://github.com/gini/puppet-cassandra/issues
+Based on the original puppet-cassandra by Gini. https://github.com/gini/puppet-cassandra
 
 [1]: http://www.datastax.com/
 
@@ -52,7 +52,7 @@ Please create bug reports and feature requests in [GitHub issues] [2].
 
 License
 -------
-Copyright (c) 2012-2013 smarchive GmbH, 2013 Gini GmbH
+Copyright (c) 2012-2013 smarchive GmbH, 2013 Gini GmbH, 2014 Gini Wlfyit
 
 This script is licensed under the [Apache License, Version 2.0] [3].
 
