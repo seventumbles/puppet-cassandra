@@ -72,6 +72,15 @@ calculate_heap_sizes()
     fi
     MAX_HEAP_SIZE="${max_heap_size_in_mb}M"
 
+    # These env variables may be useful to determine proper amount of resources
+    # assigned to DSE subprocesses, such as Spark components
+    SYSTEM_CPU_CORES="$system_cpu_cores"
+    export SYSTEM_CPU_CORES
+    SYSTEM_MEMORY_IN_MB="$system_memory_in_mb"
+    export SYSTEM_MEMORY_IN_MB
+    CASSANDRA_MEMORY_IN_MB="$max_heap_size_in_mb"
+    export CASSANDRA_MEMORY_IN_MB
+
     # Young gen: min(max_sensible_per_modern_cpu_core * num_cores, 1/4 * heap size)
     max_sensible_yg_per_core_in_mb="100"
     max_sensible_yg_in_mb=`expr $max_sensible_yg_per_core_in_mb "*" $system_cpu_cores`
@@ -93,6 +102,12 @@ java_ver_output=`"${JAVA:-java}" -version 2>&1`
 jvmver=`echo "$java_ver_output" | awk -F'"' 'NR==1 {print $2}'`
 JVM_VERSION=${jvmver%_*}
 JVM_PATCH_VERSION=${jvmver#*_}
+
+if [ "$JVM_VERSION" \< "1.7" ] ; then
+    echo "Cassandra 2.0 and later require Java 7 or later."
+    exit 1;
+fi
+
 
 jvm=`echo "$java_ver_output" | awk 'NR==2 {print $1}'`
 case "$jvm" in
