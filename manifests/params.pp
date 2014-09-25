@@ -11,20 +11,10 @@ class cassandra::params {
 
     $repo_baseurl = $::cassandra_repo_baseurl ? {
         undef   => $::osfamily ? {
-            'Debian' => 'http://debian.datastax.com/community',
-            'RedHat' => 'http://rpm.datastax.com/community/',
+            'RedHat' => "rpm.datastax.com/enterprise",
             default  => undef,
         },
         default => $::cassandra_repo_baseurl
-    }
-
-    $repo_gpgkey = $::cassandra_repo_gpgkey ? {
-        undef   => $::osfamily ? {
-            'Debian' => 'http://debian.datastax.com/debian/repo_key',
-            'RedHat' => 'http://rpm.datastax.com/rpm/repo_key',
-            default  => undef,
-        },
-        default => $::cassandra_repo_gpgkey
     }
 
     $repo_repos = $::cassandra_repo_repos ? {
@@ -53,40 +43,24 @@ class cassandra::params {
     }
 
     case $::osfamily {
-        'Debian': {
-            $package_name = $::cassandra_package_name ? {
-                undef   => 'dsc12',
-                default => $::cassandra_package_name,
-            }
-
-            $service_name = $::cassandra_service_name ? {
-                undef   => 'cassandra',
-                default => $::cassandra_service_name,
-            }
-
-            $config_path = $::cassandra_config_path ? {
-                undef   => '/etc/cassandra',
-                default => $::cassandra_config_path,
-            }
-        }
         'RedHat': {
             $package_name = $::cassandra_package_name ? {
-                undef   => 'dsc12',
+                undef   => 'dse-full',
                 default => $::cassandra_package_name,
             }
 
             $service_name = $::cassandra_service_name ? {
-                undef   => 'cassandra',
+                undef   => 'dse',
                 default => $::cassandra_service_name,
             }
 
             $config_path = $::cassandra_config_path ? {
-                undef   => '/etc/cassandra/conf',
+                undef   => '/etc/dse/cassandra',
                 default => $::cassandra_config_path,
             }
         }
         default: {
-            fail("Unsupported osfamily: ${::osfamily}, operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily Debian")
+            fail("Unsupported osfamily: ${::osfamily}, operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily RedHat")
         }
     }
 

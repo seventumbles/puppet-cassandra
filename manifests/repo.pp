@@ -1,7 +1,6 @@
 class cassandra::repo (
     $repo_name,
     $baseurl,
-    $gpgkey,
     $repos,
     $release,
     $pin,
@@ -15,7 +14,6 @@ class cassandra::repo (
                 location   => $baseurl,
                 repos      => $repos,
                 release    => $release,
-                key_source => $gpgkey,
                 pin        => $pin,
             }
         }
@@ -23,7 +21,6 @@ class cassandra::repo (
             class { 'cassandra::repo::redhat':
                 repo_name => $repo_name,
                 baseurl   => $baseurl,
-                gpgkey    => $gpgkey,
                 gpgcheck  => $gpgcheck,
                 enabled   => $enabled,
             }
