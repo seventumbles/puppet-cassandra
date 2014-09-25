@@ -171,7 +171,7 @@ class cassandra::params {
     }
 
     $initial_token = $::cassandra_initial_token ? {
-        undef   => '',
+        undef   => 'null',
         default => $::cassandra_initial_token,
     }
 
@@ -260,5 +260,22 @@ class cassandra::params {
     $service_ensure = $::cassandra_service_ensure ? {
         undef   => 'running',
         default => $::cassandra_service_ensure,
+    }
+    
+    $hadoop_enabled = $::cassandra_hadoop_enabled ? {
+        undef   => '0',
+        default => $::cassandra_hadoop_enabled,
+    }
+    $solr_enabled = $::cassandra_hadoop_enabled ? {
+        undef   => '0',
+        default => $::cassandra_hadoop_enabled,
+    }
+    $spark_enabled = $::cassandra_hadoop_enabled ? {
+        undef   => '0',
+        default => $::cassandra_hadoop_enabled,
+    }
+    $cfs_enabled = $::cassandra_hadoop_enabled ? {
+        undef   => '0',
+        default => $::cassandra_hadoop_enabled,
     }
 }

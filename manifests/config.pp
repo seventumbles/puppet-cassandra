@@ -31,6 +31,10 @@ class cassandra::config(
     $internode_compression,
     $disk_failure_policy,
     $thread_stack_size,
+    $hadoop_enabled,
+    $solr_enabled,
+    $spark_enabled,
+    $cfs_enabled,
 ) {
     group { 'cassandra':
         ensure  => present,
@@ -61,5 +65,13 @@ class cassandra::config(
     file { "${config_path}/cassandra.yaml":
         ensure  => file,
         content => template("${module_name}/cassandra.yaml.erb"),
+    }
+    
+    file { '/etc/default/dse':
+        owner   => 'root',
+        group   => 'opscenter-admin',
+        mode    => '0775',
+        ensure  => file,
+        content => template("${module_name}/dse.erb"),
     }
 }

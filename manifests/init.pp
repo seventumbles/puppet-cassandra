@@ -46,7 +46,11 @@ class cassandra(
     $disk_failure_policy        = $cassandra::params::disk_failure_policy,
     $thread_stack_size          = $cassandra::params::thread_stack_size,
     $service_enable             = $cassandra::params::service_enable,
-    $service_ensure             = $cassandra::params::service_ensure
+    $service_ensure             = $cassandra::params::service_ensure,
+    $hadoop_enabled             = $cassandra::params::hadoop_enabled,
+    $solr_enabled               = $cassandra::params::solr_enabled,
+    $spark_enabled              = $cassandra::params::spark_enabled,
+    $cfs_enabled                = $cassandra::params::cfs_enabled,
 ) inherits cassandra::params {
     # Validate input parameters
     validate_bool($include_repo)
@@ -60,12 +64,12 @@ class cassandra(
     validate_string($endpoint_snitch)
 
     validate_re($start_rpc, '^(true|false)$')
-    validate_re($start_native_transport, '^(true|false)$')
+    #validate_re($start_native_transport, '^(true|false)$')
     validate_re($rpc_server_type, '^(hsha|sync|async)$')
     validate_re($incremental_backups, '^(true|false)$')
     validate_re($snapshot_before_compaction, '^(true|false)$')
     validate_re($auto_snapshot, '^(true|false)$')
-    validate_re($multithreaded_compaction, '^(true|false)$')
+    #validate_re($multithreaded_compaction, '^(true|false)$')
     validate_re("${concurrent_reads}", '^[0-9]+$')
     validate_re("${concurrent_writes}", '^[0-9]+$')
     validate_re("${num_tokens}", '^[0-9]+$')
@@ -171,8 +175,12 @@ class cassandra(
         internode_compression      => $internode_compression,
         disk_failure_policy        => $disk_failure_policy,
         thread_stack_size          => $thread_stack_size,
+        hadoop_enabled             => $hadoop_enabled,
+        solr_enabled               => $solr_enabled,
+        spark_enabled              => $spark_enabled,
+        cfs_enabled                => $cfs_enabled,
     }
-
+    
     class { 'cassandra::service':
         service_enable => $service_enable,
         service_ensure => $service_ensure,
