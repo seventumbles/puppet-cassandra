@@ -24,7 +24,7 @@ tombstone_failure_threshold: 100000
 incremental_backups: <%= @incremental_backups %>
 memory_allocator: NativeAllocator
 commitlog_sync: periodic
-permissions_validity_in_ms: 5000
+permissions_validity_in_ms: <%= @permissions_validity_in_ms %>
 trickle_fsync: false
 rpc_keepalive: true
 max_hint_window_in_ms: 10800000
@@ -45,17 +45,17 @@ commitlog_sync_period_in_ms: 10000
 auto_snapshot: <%= @auto_snapshot %>
 hinted_handoff_throttle_in_kb: 1024
 concurrent_reads: <%= @concurrent_reads %>
-in_memory_compaction_limit_in_mb: 64
+in_memory_compaction_limit_in_mb: <%= @in_memory_compaction_limit_in_mb %>
 endpoint_snitch: <%= @endpoint_snitch %>
 client_encryption_options:
   keystore: resources/dse/conf/.keystore
   store_type: JKS
   algorithm: SunX509
   enabled: false
-  cipher_suites: [TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA]
+  cipher_suites: [<%= @client_encryption_cipher_suites.join(', ') %>]
   truststore_password: cassandra
   require_client_auth: false
-  truststore: conf/.truststore
+  truststore: <%= @client_encryption_truststore %>
   keystore_password: cassandra
   protocol: TLS
 partitioner: <%= @partitioner %>
@@ -73,16 +73,17 @@ broadcast_address: <%= @broadcast_address %>
 <% end %>
 tombstone_warn_threshold: 1000
 rpc_server_type: <%= @rpc_server_type %>
-compaction_preheat_key_cache: true
+compaction_preheat_key_cache: <%= @compaction_preheat_key_cachetrue %>
 concurrent_writes: <%= @concurrent_writes %>
 data_file_directories:<% @data_file_directories.each do |data_file_directory| %>
     - <%= data_file_directory %>
 <% end %>
+batch_size_warn_threshold_in_kb: <%= @batch_size_warn_threshold_in_kb %>
 server_encryption_options:
   keystore: resources/dse/conf/.keystore
   protocol: TLS
   algorithm: SunX509
-  cipher_suites: [TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA]
+  cipher_suites: [<%= @server_encryption_cipher_suites.join(', ') %>]
   truststore_password: cassandra
   require_client_auth: false
   truststore: resources/dse/conf/.truststore
