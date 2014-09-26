@@ -4,6 +4,7 @@ class cassandra::config(
     $heap_newsize,
     $jmx_port,
     $additional_jvm_opts,
+    $permissions_validity_in_ms,
     $cluster_name,
     $start_native_transport,
     $start_rpc,
@@ -24,6 +25,7 @@ class cassandra::config(
     $seeds,
     $concurrent_reads,
     $concurrent_writes,
+    $in_memory_compaction_limit_in_mb,
     $incremental_backups,
     $snapshot_before_compaction,
     $auto_snapshot,
@@ -32,6 +34,11 @@ class cassandra::config(
     $internode_compression,
     $disk_failure_policy,
     $thread_stack_size,
+    $client_encryption_cipher_suites,
+    $client_encryption_truststore,
+    $server_encryption_cipher_suites,
+    $compaction_preheat_key_cachetrue,
+    $batch_size_warn_threshold_in_kb,
     $hadoop_enabled,
     $solr_enabled,
     $spark_enabled,
@@ -74,5 +81,10 @@ class cassandra::config(
         mode    => '0775',
         ensure  => file,
         content => template("${module_name}/dse.erb"),
+    }
+    
+    file { "${config_path}/cassandra-topology.properties":
+        ensure  => file,
+        content => template("${module_name}/cassandra-topology.properties.erb"),
     }
 }

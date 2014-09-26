@@ -114,6 +114,11 @@ class cassandra::params {
         undef   => [],
         default => $::cassandra_additional_jvm_opts,
     }
+    
+    $permissions_validity_in_ms = $::cassandra_permissions_validity_in_ms ? {
+        undef   => 5000,
+        default => $::cassandra_permissions_validity_in_ms,
+    }
 
     $cluster_name = $::cassandra_cluster_name ? {
         undef   => 'Cassandra',
@@ -191,6 +196,11 @@ class cassandra::params {
         undef   => $default_concurrent_writes,
         default => $::cassandra_concurrent_writes,
     }
+    
+    $in_memory_compaction_limit_in_mb = $::cassandra_in_memory_compaction_limit_in_mb ? {
+        undef   => 64,
+        default => $::cassandra_in_memory_compaction_limit_in_mb,
+    }
 
     $incremental_backups = $::cassandra_incremental_backups ? {
         undef   => 'false',
@@ -265,6 +275,31 @@ class cassandra::params {
     $service_ensure = $::cassandra_service_ensure ? {
         undef   => 'running',
         default => $::cassandra_service_ensure,
+    }
+    
+    $client_encryption_cipher_suites = $::cassandra_client_encryption_cipher_suites ? {
+        undef   => ['TLS_RSA_WITH_AES_128_CBC_SHA', 'TLS_RSA_WITH_AES_256_CBC_SHA'],
+        default => $::cassandra_client_encryption_cipher_suites,
+    }
+    
+    $server_encryption_cipher_suites = $::cassandra_server_encryption_cipher_suites ? {
+        undef   => ['TLS_RSA_WITH_AES_128_CBC_SHA', 'TLS_RSA_WITH_AES_256_CBC_SHA'],
+        default => $::cassandra_server_encryption_cipher_suites,
+    }
+    
+    $client_encryption_truststore = $::cassandra_client_encryption_truststore ? {
+        undef   => 'conf/.truststore',
+        default => $::cassandra_client_encryption_truststore,
+    }
+    
+    $compaction_preheat_key_cachetrue = $::cassandra_compaction_preheat_key_cachetrue ? {
+        undef   => 'true',
+        default => $::cassandra_compaction_preheat_key_cachetrue,
+    }
+    
+    $batch_size_warn_threshold_in_kb = $::cassandra_batch_size_warn_threshold_in_kb ? {
+        undef   => '64',
+        default => $::cassandra_batch_size_warn_threshold_in_kb,
     }
     
     $hadoop_enabled = $::cassandra_hadoop_enabled ? {
