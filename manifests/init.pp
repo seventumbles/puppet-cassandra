@@ -33,6 +33,7 @@ class cassandra(
     $saved_caches_directory     = $cassandra::params::saved_caches_directory,
     $initial_token              = $cassandra::params::initial_token,
     $num_tokens                 = $cassandra::params::num_tokens,
+    $authenticator              = $cassandra::params::authenticator,
     $seeds                      = $cassandra::params::seeds,
     $concurrent_reads           = $cassandra::params::concurrent_reads,
     $concurrent_writes          = $cassandra::params::concurrent_writes,
@@ -72,6 +73,7 @@ class cassandra(
     validate_re("${concurrent_reads}", '^[0-9]+$')
     validate_re("${concurrent_writes}", '^[0-9]+$')
     validate_re("${num_tokens}", '^[0-9]+$')
+    validate_re($authenticator, '^(AllowAllAuthenticator|PasswordAuthenticator)$')
     validate_re($internode_compression, '^(all|dc|none)$')
     validate_re($disk_failure_policy, '^(stop|best_effort|ignore)$')
     validate_re("${thread_stack_size}", '^[0-9]+$')
@@ -162,6 +164,7 @@ class cassandra(
         saved_caches_directory     => $saved_caches_directory,
         initial_token              => $initial_token,
         num_tokens                 => $num_tokens,
+        authenticator             => $authenticator,
         seeds                      => $seeds,
         concurrent_reads           => $concurrent_reads,
         concurrent_writes          => $concurrent_writes,
