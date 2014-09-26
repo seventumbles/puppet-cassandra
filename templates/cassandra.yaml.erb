@@ -38,7 +38,7 @@ write_request_timeout_in_ms: 10000
 request_timeout_in_ms: 10000
 internode_authenticator: org.apache.cassandra.auth.AllowAllInternodeAuthenticator
 num_tokens: <%= @num_tokens %>
-authenticator: AllowAllAuthenticator
+authenticator: <%= @authenticator %>
 row_cache_size_in_mb: 0
 dynamic_snitch_badness_threshold: 0.1
 commitlog_sync_period_in_ms: 10000

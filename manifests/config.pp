@@ -20,6 +20,7 @@ class cassandra::config(
     $saved_caches_directory,
     $initial_token,
     $num_tokens,
+    $authenticator,
     $seeds,
     $concurrent_reads,
     $concurrent_writes,

@@ -246,6 +246,11 @@ class cassandra::params {
         undef   => 256,
         default => $::cassandra_num_tokens,
     }
+    
+    $authenticator = $::cassandra_authenticator ? {
+        undef   => 'AllowAllAuthenticator',
+        default => $::cassandra_authenticator,
+    }
 
     $thread_stack_size = $::cassandra_thread_stack_size ? {
         undef   => 180,
@@ -266,14 +271,17 @@ class cassandra::params {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
+    
     $solr_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
+    
     $spark_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
+    
     $cfs_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
