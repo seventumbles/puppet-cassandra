@@ -62,6 +62,7 @@ class cassandra(
     $batch_size_warn_threshold_in_kb  = $cassandra::params::batch_size_warn_threshold_in_kb,
     $topology_default                 = $cassandra::params::topology_default,
     $topology                         = $cassandra::params::topology,
+    $opscenter_ip                     = $cassandra::params::opscenter_ip,
 ) inherits cassandra::params {
     # Validate input parameters
     validate_bool($include_repo)
@@ -205,6 +206,7 @@ class cassandra(
     }
 
     class { 'cassandra::topology':
+        config_path      => $config_path,
         topology         => $topology,
         topology_default => $topology_default,
     }
@@ -212,6 +214,10 @@ class cassandra(
     class { 'cassandra::service':
         service_enable => $service_enable,
         service_ensure => $service_ensure,
+    }
+    
+    class { 'cassandra::agent':
+        opscenter_ip => $opscenter_ip,
     }
 
     anchor { 'cassandra::end': }
