@@ -181,7 +181,7 @@ class cassandra::params {
     }
 
     $seeds = $::cassandra_seeds ? {
-        undef   => [],
+        undef   => ['127.0.0.1'],
         default => $::cassandra_seeds,
     }
 
@@ -261,6 +261,11 @@ class cassandra::params {
         undef   => 'AllowAllAuthenticator',
         default => $::cassandra_authenticator,
     }
+    
+    $authorizer = $::cassandra_authorizer ? {
+        undef   => 'AllowAllAuthorizer',
+        default => $::cassandra_authorizer,
+    }
 
     $thread_stack_size = $::cassandra_thread_stack_size ? {
         undef   => 180,
@@ -320,5 +325,15 @@ class cassandra::params {
     $cfs_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
+    }
+    
+    $topology = $::cassandra_topology ? {
+        undef   => ['192.168.1.1=DC1:RAC1'],
+        default => $::cassandra_topology,
+    }
+    
+    $topology_default = $::cassandra_topoclogy_default ? {
+        undef   => 'DC1:RAC1',
+        default => $::cassandra_topoclogy_default,
     }
 }

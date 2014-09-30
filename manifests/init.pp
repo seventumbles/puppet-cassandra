@@ -36,6 +36,7 @@ class cassandra(
     $initial_token                    = $cassandra::params::initial_token,
     $num_tokens                       = $cassandra::params::num_tokens,
     $authenticator                    = $cassandra::params::authenticator,
+    $authorizer                       = $cassandra::params::authorizer,
     $seeds                            = $cassandra::params::seeds,
     $concurrent_reads                 = $cassandra::params::concurrent_reads,
     $concurrent_writes                = $cassandra::params::concurrent_writes,
@@ -59,6 +60,8 @@ class cassandra(
     $server_encryption_cipher_suites  = $cassandra::params::server_encryption_cipher_suites,
     $compaction_preheat_key_cachetrue = $cassandra::params::compaction_preheat_key_cachetrue,
     $batch_size_warn_threshold_in_kb  = $cassandra::params::batch_size_warn_threshold_in_kb,
+    $topology_default                 = $cassandra::params::topology_default,
+    $topology                         = $cassandra::params::topology,
 ) inherits cassandra::params {
     # Validate input parameters
     validate_bool($include_repo)
@@ -83,6 +86,7 @@ class cassandra(
     validate_re("${concurrent_writes}", '^[0-9]+$')
     validate_re("${num_tokens}", '^[0-9]+$')
     validate_re($authenticator, '^(AllowAllAuthenticator|PasswordAuthenticator)$')
+    validate_re($authorizer, '^(AllowAllAuthorizer|CassandraAuthorizer)$')
     validate_re($internode_compression, '^(all|dc|none)$')
     validate_re($disk_failure_policy, '^(stop|best_effort|ignore)$')
     validate_re("${thread_stack_size}", '^[0-9]+$')
@@ -176,6 +180,7 @@ class cassandra(
         initial_token                    => $initial_token,
         num_tokens                       => $num_tokens,
         authenticator                    => $authenticator,
+        authorizer                       => $authorizer,
         seeds                            => $seeds,
         concurrent_reads                 => $concurrent_reads,
         concurrent_writes                => $concurrent_writes,
@@ -197,6 +202,11 @@ class cassandra(
         solr_enabled                     => $solr_enabled,
         spark_enabled                    => $spark_enabled,
         cfs_enabled                      => $cfs_enabled,
+    }
+
+    class { 'cassandra::topology':
+        topology         => $topology,
+        topology_default => $topology_default,
     }
 
     class { 'cassandra::service':
