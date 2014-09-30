@@ -302,12 +302,17 @@ class cassandra::params {
     }
     
     $topology = $::cassandra_topology ? {
-        undef   => ['192.168.1.1=DC1:RAC1'],
+        undef   => ['192.168.1.1=DC1:RAC1','192.168.1.2=DC1:RAC1'],
         default => $::cassandra_topology,
     }
     
     $topology_default = $::cassandra_topoclogy_default ? {
         undef   => 'DC1:RAC1',
         default => $::cassandra_topoclogy_default,
+    }
+    
+    $opscenter_ip = $::cassandra_opscenter_ip ? {
+        undef   => '',
+        default => $::cassandra_opscenter_ip,
     }
 }

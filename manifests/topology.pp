@@ -1,4 +1,5 @@
 class cassandra::topology(
+  $config_path,
   $topology,
   $topology_default
 ) {
