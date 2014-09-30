@@ -22,6 +22,7 @@ class cassandra::config(
     $initial_token,
     $num_tokens,
     $authenticator,
+    $authorizer,
     $seeds,
     $concurrent_reads,
     $concurrent_writes,
@@ -81,10 +82,5 @@ class cassandra::config(
         mode    => '0775',
         ensure  => file,
         content => template("${module_name}/dse.erb"),
-    }
-    
-    file { "${config_path}/cassandra-topology.properties":
-        ensure  => file,
-        content => template("${module_name}/cassandra-topology.properties.erb"),
     }
 }
