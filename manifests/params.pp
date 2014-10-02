@@ -55,17 +55,17 @@ class cassandra::params {
     case $::osfamily {
         'Debian': {
             $package_name = $::cassandra_package_name ? {
-                undef   => 'dsc12',
+                undef   => 'dse-full',
                 default => $::cassandra_package_name,
             }
 
             $service_name = $::cassandra_service_name ? {
-                undef   => 'cassandra',
+                undef   => 'dse',
                 default => $::cassandra_service_name,
             }
 
             $config_path = $::cassandra_config_path ? {
-                undef   => '/etc/cassandra',
+                undef   => '/etc/dse/cassandra',
                 default => $::cassandra_config_path,
             }
         }
