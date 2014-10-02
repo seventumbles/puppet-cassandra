@@ -12,6 +12,8 @@ class cassandra(
     $repo_pin                   = $cassandra::params::repo_pin,
     $repo_gpgcheck              = $cassandra::params::repo_gpgcheck,
     $repo_enabled               = $cassandra::params::repo_enabled,
+    $repo_user                  = $cassandra::params::repo_user,
+    $repo_password              = $cassandra::params::repo_password,
     $max_heap_size              = $cassandra::params::max_heap_size,
     $heap_newsize               = $cassandra::params::heap_newsize,
     $jmx_port                   = $cassandra::params::jmx_port,
@@ -123,7 +125,7 @@ class cassandra(
     if($include_repo) {
         class { 'cassandra::repo':
             repo_name => $repo_name,
-            baseurl   => $repo_baseurl,
+            baseurl   => "http://$repo_user:$repo_password@$repo_baseurl",
             gpgkey    => $repo_gpgkey,
             repos     => $repo_repos,
             release   => $repo_release,
