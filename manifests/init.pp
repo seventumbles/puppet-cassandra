@@ -106,6 +106,10 @@ class cassandra(
         fail('jmx_port must be a port number between 1 and 65535')
     }
 
+    if(!empty($opscenter_ip) and !is_ip_address($opscenter_ip)) {
+        fail('opscenter_ip must be an IP address')
+    }
+
     if(!is_ip_address($listen_address)) {
         fail('listen_address must be an IP address')
     }
@@ -209,6 +213,7 @@ class cassandra(
         cfs_enabled                      => $cfs_enabled,
         rackdc_dc                        => $rackdc_dc,
         rackdc_rack                      => $rackdc_rack,
+        opscenter_ip                     => $opscenter_ip,
     }
 
     class { 'cassandra::topology':
@@ -221,7 +226,7 @@ class cassandra(
         service_enable => $service_enable,
         service_ensure => $service_ensure,
     }
-    
+
     class { 'cassandra::agent':
         opscenter_ip => $opscenter_ip,
     }

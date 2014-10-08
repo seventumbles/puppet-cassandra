@@ -46,6 +46,7 @@ class cassandra::config(
     $cfs_enabled,
     $rackdc_dc,
     $rackdc_rack,
+    $opscenter_ip,
 ) {
     group { 'cassandra':
         ensure  => present,
