@@ -79,28 +79,43 @@ class cassandra(
     validate_string($rackdc_dc)
     validate_string($rackdc_rack)
 
-    validate_re("${permissions_validity_in_ms}", '^[0-9]+$')
-    validate_re($start_rpc, '^(true|false)$')
-    #validate_re($start_native_transport, '^(true|false)$')
+    validate_bool($start_rpc)
+    validate_bool($start_native_transport)
     validate_re($rpc_server_type, '^(hsha|sync|async)$')
-    validate_re($incremental_backups, '^(true|false)$')
-    validate_re($snapshot_before_compaction, '^(true|false)$')
-    validate_re($auto_snapshot, '^(true|false)$')
-    #validate_re($multithreaded_compaction, '^(true|false)$')
-    validate_re("${concurrent_reads}", '^[0-9]+$')
-    validate_re("${concurrent_writes}", '^[0-9]+$')
-    validate_re("${num_tokens}", '^[0-9]+$')
+    validate_bool($incremental_backups)
+    validate_bool($snapshot_before_compaction)
+    validate_bool($auto_snapshot)
+    validate_bool($multithreaded_compaction)
     validate_re($authenticator, '^(AllowAllAuthenticator|PasswordAuthenticator)$')
     validate_re($authorizer, '^(AllowAllAuthorizer|CassandraAuthorizer)$')
     validate_re($internode_compression, '^(all|dc|none)$')
     validate_re($disk_failure_policy, '^(stop|best_effort|ignore)$')
-    validate_re("${thread_stack_size}", '^[0-9]+$')
-    validate_re($service_enable, '^(true|false)$')
+    validate_bool($service_enable)
     validate_re($service_ensure, '^(running|stopped)$')
 
     validate_array($additional_jvm_opts)
     validate_array($seeds)
     validate_array($data_file_directories)
+
+    if(!is_integer($permissions_validity_in_ms)) {
+        fail('permissions_validity_in_ms must be an integer')
+    }
+
+    if(!is_integer($thread_stack_size)) {
+        fail('thread_stack_size must be an integer')
+    }
+
+    if(!is_integer($concurrent_reads)) {
+        fail('concurrent_reads must be an integer')
+    }
+
+    if(!is_integer($concurrent_writes)) {
+        fail('concurrent_writes must be an integer')
+    }
+
+    if(!is_integer($num_tokens)) {
+        fail('num_tokens must be an integer')
+    }
 
     if(!is_integer($jmx_port)) {
         fail('jmx_port must be a port number between 1 and 65535')
