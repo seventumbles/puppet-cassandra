@@ -6,5 +6,6 @@ class cassandra::topology(
   file { "${config_path}/cassandra-topology.properties":
     ensure  => file,
     content => template("${module_name}/cassandra-topology.properties.erb"),
+    require => Package['dse-full']
   }
 }
