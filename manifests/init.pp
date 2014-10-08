@@ -167,7 +167,7 @@ class cassandra(
     if($include_repo) {
         class { 'cassandra::repo':
             repo_name => $repo_name,
-            baseurl   => "http://$repo_user:$repo_password@$repo_baseurl",
+            baseurl   => "http://${repo_user}:${repo_password}@${repo_baseurl}",
             gpgkey    => $repo_gpgkey,
             repos     => $repo_repos,
             release   => $repo_release,

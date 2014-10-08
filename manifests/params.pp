@@ -4,6 +4,16 @@ class cassandra::params {
         default => $::cassandra_include_repo
     }
 
+    $repo_user = $::cassandra_repo_user ? {
+        undef   => '',
+        default => $::cassandra_repo_user
+    }
+
+    $repo_password = $::cassandra_repo_password ? {
+        undef   => '',
+        default => $::cassandra_repo_password
+    }
+
     $repo_name = $::cassandra_repo_name ? {
         undef   => 'datastax',
         default => $::cassandra_repo_name
