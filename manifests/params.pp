@@ -196,7 +196,7 @@ class cassandra::params {
         undef   => $default_concurrent_writes,
         default => $::cassandra_concurrent_writes,
     }
-    
+
     $in_memory_compaction_limit_in_mb = $::cassandra_in_memory_compaction_limit_in_mb ? {
         undef   => 64,
         default => $::cassandra_in_memory_compaction_limit_in_mb,
@@ -256,12 +256,12 @@ class cassandra::params {
         undef   => 256,
         default => $::cassandra_num_tokens,
     }
-    
+
     $authenticator = $::cassandra_authenticator ? {
         undef   => 'AllowAllAuthenticator',
         default => $::cassandra_authenticator,
     }
-    
+
     $authorizer = $::cassandra_authorizer ? {
         undef   => 'AllowAllAuthorizer',
         default => $::cassandra_authorizer,
@@ -281,62 +281,72 @@ class cassandra::params {
         undef   => 'running',
         default => $::cassandra_service_ensure,
     }
-    
+
     $client_encryption_cipher_suites = $::cassandra_client_encryption_cipher_suites ? {
         undef   => ['TLS_RSA_WITH_AES_128_CBC_SHA', 'TLS_RSA_WITH_AES_256_CBC_SHA'],
         default => $::cassandra_client_encryption_cipher_suites,
     }
-    
+
     $server_encryption_cipher_suites = $::cassandra_server_encryption_cipher_suites ? {
         undef   => ['TLS_RSA_WITH_AES_128_CBC_SHA', 'TLS_RSA_WITH_AES_256_CBC_SHA'],
         default => $::cassandra_server_encryption_cipher_suites,
     }
-    
+
     $client_encryption_truststore = $::cassandra_client_encryption_truststore ? {
         undef   => 'conf/.truststore',
         default => $::cassandra_client_encryption_truststore,
     }
-    
+
     $compaction_preheat_key_cachetrue = $::cassandra_compaction_preheat_key_cachetrue ? {
         undef   => 'true',
         default => $::cassandra_compaction_preheat_key_cachetrue,
     }
-    
+
     $batch_size_warn_threshold_in_kb = $::cassandra_batch_size_warn_threshold_in_kb ? {
         undef   => '64',
         default => $::cassandra_batch_size_warn_threshold_in_kb,
     }
-    
+
     $hadoop_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
-    
+
     $solr_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
-    
+
     $spark_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
-    
+
     $cfs_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
     }
-    
+
     $topology = $::cassandra_topology ? {
         undef   => ['192.168.1.1=DC1:RAC1','192.168.1.2=DC1:RAC1'],
         default => $::cassandra_topology,
     }
-    
+
     $topology_default = $::cassandra_topoclogy_default ? {
         undef   => 'DC1:RAC1',
         default => $::cassandra_topoclogy_default,
     }
-    
+
+    $rackdc_dc = $::rackdc_dc ? {
+      undef   => 'DC1',
+      default => $::rackdc_dc,
+    }
+
+    $rackdc_rack = $::rackdc_rack ? {
+      undef   => 'RAC1',
+      default => $::rackdc_rack,
+    }
+
     $opscenter_ip = $::cassandra_opscenter_ip ? {
         undef   => '',
         default => $::cassandra_opscenter_ip,

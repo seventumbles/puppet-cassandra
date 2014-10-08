@@ -44,6 +44,8 @@ class cassandra::config(
     $solr_enabled,
     $spark_enabled,
     $cfs_enabled,
+    $rackdc_dc,
+    $rackdc_rack,
 ) {
     group { 'cassandra':
         ensure  => present,
@@ -75,7 +77,12 @@ class cassandra::config(
         ensure  => file,
         content => template("${module_name}/cassandra.yaml.erb"),
     }
-    
+
+    file { "${config_path}/cassandra-rackdc.properties":
+        ensure  => file,
+        content => template("${module_name}/cassandra-rackdc.properties.erb"),
+    }
+
     file { '/etc/default/dse':
         owner   => 'root',
         group   => 'opscenter-admin',

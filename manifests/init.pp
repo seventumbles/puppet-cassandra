@@ -62,6 +62,8 @@ class cassandra(
     $batch_size_warn_threshold_in_kb  = $cassandra::params::batch_size_warn_threshold_in_kb,
     $topology_default                 = $cassandra::params::topology_default,
     $topology                         = $cassandra::params::topology,
+    $rackdc_dc                        = $cassandra::params::rackdc_dc,
+    $rackdc_rack                      = $cassandra::params::rackdc_rack,
     $opscenter_ip                     = $cassandra::params::opscenter_ip,
 ) inherits cassandra::params {
     # Validate input parameters
@@ -74,6 +76,8 @@ class cassandra(
     validate_string($partitioner)
     validate_string($initial_token)
     validate_string($endpoint_snitch)
+    validate_string($rackdc_dc)
+    validate_string($rackdc_rack)
 
     validate_re("${permissions_validity_in_ms}", '^[0-9]+$')
     validate_re($start_rpc, '^(true|false)$')
@@ -203,6 +207,8 @@ class cassandra(
         solr_enabled                     => $solr_enabled,
         spark_enabled                    => $spark_enabled,
         cfs_enabled                      => $cfs_enabled,
+        rackdc_dc                        => $rackdc_dc,
+        rackdc_rack                      => $rackdc_rack,
     }
 
     class { 'cassandra::topology':
