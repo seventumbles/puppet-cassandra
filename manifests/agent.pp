@@ -1,7 +1,7 @@
 class cassandra::agent(
   $opscenter_ip
 ) {
-  file { "/var/lib/datastax-agent/conf/address.yaml":
+  file { '/var/lib/datastax-agent/conf/address.yaml':
     ensure  => file,
     content => template("${module_name}/address.yaml.erb"),
     require => Package['dse-full'],

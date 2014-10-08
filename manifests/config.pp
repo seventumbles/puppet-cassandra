@@ -85,10 +85,10 @@ class cassandra::config(
     }
 
     file { '/etc/default/dse':
+        ensure  => file,
         owner   => 'root',
         group   => 'opscenter-admin',
         mode    => '0775',
-        ensure  => file,
         content => template("${module_name}/dse.erb"),
     }
 }
