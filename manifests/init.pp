@@ -164,6 +164,8 @@ class cassandra(
     # Anchors for containing the implementation class
     anchor { 'cassandra::begin': }
 
+    include java7
+
     if($include_repo) {
         class { 'cassandra::repo':
             repo_name => $repo_name,
