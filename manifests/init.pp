@@ -242,10 +242,12 @@ class cassandra(
     class { 'cassandra::service':
         service_enable => $service_enable,
         service_ensure => $service_ensure,
-    }
-
+    }->
     class { 'cassandra::agent':
-        opscenter_ip => $opscenter_ip,
+        opscenter_ip  => $opscenter_ip,
+        ip_address    => $ip_address,
+        api_port      => $rpc_port,
+        seed_nodes    => $seeds,
     }
 
     anchor { 'cassandra::end': }
