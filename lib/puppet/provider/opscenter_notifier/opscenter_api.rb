@@ -18,10 +18,12 @@ Puppet::Type.type(:opscenter_notifier).provide(:opscenter_api) do
 
   #required callback for ensurable
   def destroy
+    #we never want puppet to remove a cluster from opscenter as part of a provisioning action
   end
 
   #required callback for ensurable
   def exists?
+    #we always want create to be called
     false
   end
 
