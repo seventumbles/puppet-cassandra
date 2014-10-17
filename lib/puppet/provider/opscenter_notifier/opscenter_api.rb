@@ -13,7 +13,7 @@ Puppet::Type.type(:opscenter_notifier).provide(:opscenter_api) do
 
   #required callback for ensurable
   def create
-    update_cluster_configs
+    update_cluster_configs if resource[:seed_nodes].include? resource[:ip_address]
   end
 
   #required callback for ensurable
