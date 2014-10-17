@@ -16,13 +16,17 @@ class cassandra::agent(
     enable     => true,
     subscribe  => File['/var/lib/datastax-agent/conf/address.yaml'],
     require    => File['/var/lib/datastax-agent/conf/address.yaml'],
-    notify     => Exec['wait-for-cassandra-to-listen'],
   }
 
   if (!empty($opscenter_ip)) {
     package { 'curl':
       ensure => 'present',
     }
+
+    service {'datastax-agent':
+      notify     => Exec['wait-for-cassandra-to-listen'],
+    }
+
     exec {'wait-for-cassandra-to-listen':
       command     => "curl -s 172.28.128.4:9160",
       path        => '/usr/bin',
@@ -33,6 +37,7 @@ class cassandra::agent(
       require     => Class['cassandra::service'],
       notify      => Opscenter_notifier["${cassandra::cluster_name}"],
     }
+
     opscenter_notifier {"${cassandra::cluster_name}":
       command       => 'update_cluster_configs',
       opscenter_ip  => $opscenter_ip,
