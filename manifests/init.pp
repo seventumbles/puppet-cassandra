@@ -245,7 +245,7 @@ class cassandra(
     }->
     class { 'cassandra::agent':
         opscenter_ip  => $opscenter_ip,
-        ip_address    => $ip_address,
+        ip_address    => $::ipaddress,
         api_port      => $rpc_port,
         seed_nodes    => $seeds,
     }
