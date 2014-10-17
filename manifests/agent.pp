@@ -31,9 +31,9 @@ class cassandra::agent(
       try_sleep   => 3,
       returns     => [0, 52],
       require     => Class['cassandra::service'],
-      notify      => Opscenter_notifier['notify_opscenter_of_cluster_configs'],
+      notify      => Opscenter_notifier["${cassandra::cluster_name}"],
     }
-    opscenter_notifier {'notify_opscenter_of_cluster_configs':
+    opscenter_notifier {"${cassandra::cluster_name}":
       command       => 'update_cluster_configs',
       opscenter_ip  => $opscenter_ip,
       ip_address    => $ip_address,
